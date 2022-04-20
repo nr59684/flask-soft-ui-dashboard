@@ -122,7 +122,6 @@ The project is coded using blueprints, app factory pattern, dual configuration p
    |    |    |
    |    |    |-- accounts/                  # Authentication pages
    |    |    |    |-- login.html            # Login page
-   |    |    |    |-- register.html         # Register page
    |    |    |
    |    |    |-- home/                      # UI Kit Pages
    |    |         |-- index.html            # Index page
