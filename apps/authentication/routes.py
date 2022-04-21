@@ -1,8 +1,3 @@
-# -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
-
 from flask import render_template, redirect, request, url_for
 from flask_login import (
     current_user,
@@ -16,7 +11,7 @@ from apps.authentication.forms import LoginForm, CreateAccountForm
 from apps.authentication.models import Users
 
 from apps.authentication.util import verify_pass
-
+import requests,base64
 
 @blueprint.route('/')
 def route_default():
@@ -24,6 +19,7 @@ def route_default():
 
 
 # Login & Registration
+       
 
 @blueprint.route('/login', methods=['GET', 'POST'])
 def login():
@@ -52,45 +48,6 @@ def login():
         return render_template('accounts/login.html',
                                form=login_form)
     return redirect(url_for('home_blueprint.index'))
-
-
-@blueprint.route('/register', methods=['GET', 'POST'])
-def register():
-    create_account_form = CreateAccountForm(request.form)
-    if 'register' in request.form:
-
-        username = request.form['username']
-        email = request.form['email']
-
-        # Check usename exists
-        user = Users.query.filter_by(username=username).first()
-        if user:
-            return render_template('accounts/register.html',
-                                   msg='Username already registered',
-                                   success=False,
-                                   form=create_account_form)
-
-        # Check email exists
-        user = Users.query.filter_by(email=email).first()
-        if user:
-            return render_template('accounts/register.html',
-                                   msg='Email already registered',
-                                   success=False,
-                                   form=create_account_form)
-
-        # else we can create the user
-        user = Users(**request.form)
-        db.session.add(user)
-        db.session.commit()
-
-        return render_template('accounts/register.html',
-                               msg='User created please <a href="/login">login</a>',
-                               success=True,
-                               form=create_account_form)
-
-    else:
-        return render_template('accounts/register.html', form=create_account_form)
-
 
 @blueprint.route('/logout')
 def logout():

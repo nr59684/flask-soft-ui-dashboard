@@ -15,7 +15,7 @@
             <div class="card card-plain mt-8">
               <div class="card-header pb-0 text-left bg-transparent">
                 <h4 class="text-info text-gradient">
-                  Flask Soft - Login
+                  Bot Admin - Login
                 </h4>
                 <p class="mb-0">
                     {% if msg %}
@@ -47,12 +47,7 @@
                   </div>
                 </form>
               </div>
-              <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                <p class="mb-4 text-sm mx-auto">
-                  Don't have an account?
-                  <a href="{{ url_for('authentication_blueprint.register') }}" class="text-info text-gradient font-weight-bold">Sign UP</a>
-                </p>
-              </div>
+              {% include "includes/footer.html" %}
             </div>
           </div>
           <div class="col-md-6">
