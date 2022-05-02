@@ -1,5 +1,5 @@
 {% extends 'layouts/base.html' %}
-
+{% set active_page = "index" %}
 {% block title %} Dashboard {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
@@ -8,96 +8,7 @@
 {% block content %}
 
     <div class="container-fluid py-4">
-      <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Bot Hoshi</p>
-                    <h5 class="font-weight-bolder mb-0">
-                      Status
-                      <span class="text-success text-sm font-weight-bolder">Online</span>
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                    <i class="ni ni-spaceship text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Bot Neural IT</p>
-                    <h5 class="font-weight-bolder mb-0">
-                      Status
-                      <span class="text-success text-sm font-weight-bolder">Online</span>
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                    <i class="ni ni-spaceship text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Bot Training</p>
-                    <h5 class="font-weight-bolder mb-0">
-                      Status
-                      <span class="text-danger text-sm font-weight-bolder">Offline</span>
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                    <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Questions</p>
-                    <h5 class="font-weight-bolder mb-0">
-                      71
-                      <span class="text-success text-sm font-weight-bolder">+ 0</span>
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                    <i class="ni ni-bullet-list-67 text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    {% include "home/status.html" %}
       <div class="row mt-4">
         <div class="col-lg-7 mb-lg-0 mb-4">
           <div class="card">
@@ -106,12 +17,11 @@
                 <div class="col-lg-6">
                   <div class="d-flex flex-column h-100">
                     <p class="mb-1 pt-2 text-bold">Check Bot Response</p>
-            
                     <h5 class="font-weight-bolder">Enter Question :</h5>
                     <form class="mb-5" method="POST" id="contactForm" name="contactForm" class="contactForm" action="/index">
                       <div class="col-md-12">
 												<div class="form-group">
-													<input type="text" class="form-control" name="req_message" id="subject" placeholder="{{question}}">
+													<input type="text" class="form-control" name="req_message" id="subject" placeholder= "{% if que %} {{ que | safe }} {% else %} Question {% endif %} ">
 												</div>
 											</div>
                       <div class="col-md-12">
@@ -144,7 +54,32 @@
 
 <!-- Specific JS goes HERE --> 
 {% block javascripts %}
+<script>
+  var myVar = setInterval(update_data_frame, 2000);
+  function update_data_frame () {
+      url = '/status';
+      fetch(url,{method:'POST'})
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(myJson)
+      {
+        store = myJson;
+        //This line prints out "{somedata":"somedatavalue","somedata1":"somedatavalue1"}" every 2000 milliseconds
+        console.log(store);
+        document.getElementById("hoshiBot").innerHTML=store.bot1;
+        document.getElementById("neuralbot").innerHTML=store.bot2;
+        document.getElementById("train_status").innerHTML=store.bot1;
+        document.getElementById('hoshiBot').className ="text-"+store.success1+" text-sm font-weight-bolder";
+        document.getElementById('train_status').className ="text-"+store.success1+" text-sm font-weight-bolder";
+        document.getElementById('neuralbot').className ="text-"+store.success2+" text-sm font-weight-bolder";
+        document.getElementById("count").innerHTML=store.count;
+        document.getElementById('count').className ="text-"+store.success1+" font-weight-bolder mb-0";
 
+      });
+    }
+  
+  </script>
   <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
 
@@ -212,7 +147,7 @@
       },
     });
 
-
+    
     var ctx2 = document.getElementById("chart-line").getContext("2d");
 
     var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);

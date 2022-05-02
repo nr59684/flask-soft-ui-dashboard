@@ -16,25 +16,6 @@
     }
   }
 
-  .fixed-plugin {
-    .fixed-plugin-button {
-      left: $fixed-plugin-right;
-      right: auto;
-    }
-
-    .card {
-      left: -$fixed-plugin-card-width !important;
-      right: auto;
-    }
-
-    &.show {
-      .card {
-        right: auto;
-        left: 0 !important;
-      }
-    }
-  }
-
   .timeline {
     .timeline-content {
       margin-right: $timeline-content-margin-left;

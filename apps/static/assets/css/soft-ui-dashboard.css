@@ -12107,6 +12107,13 @@ textarea.form-control-lg {
   .btn.bg-gradient-info:hover {
     color: #fff; }
 
+.btn-info,
+.btn.edit-bg-gradient-info {
+  color: #fff; }
+  .btn-info:hover,
+  .btn.edit-bg-gradient-info:hover {
+    color: #fff; }
+
 .btn-success,
 .btn.bg-gradient-success {
   color: #fff; }
@@ -12487,55 +12494,6 @@ textarea.form-control-lg {
   .oblique .oblique-image {
     transform: skewX(10deg); }
 
-.fixed-plugin .fixed-plugin-button {
-  background: #fff;
-  border-radius: 50%;
-  bottom: 30px;
-  right: 30px;
-  font-size: 1.25rem;
-  z-index: 990;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.16);
-  cursor: pointer; }
-  .fixed-plugin .fixed-plugin-button i {
-    pointer-events: none; }
-
-.fixed-plugin .card {
-  position: fixed !important;
-  right: -360px;
-  top: 0;
-  height: 100%;
-  left: auto !important;
-  transform: unset !important;
-  width: 360px;
-  border-radius: 0;
-  padding: 0 10px;
-  transition: .2s ease;
-  z-index: 1020; }
-
-.fixed-plugin .badge {
-  border: 1px solid #fff;
-  border-radius: 50%;
-  cursor: pointer;
-  display: inline-block;
-  height: 23px;
-  margin-right: 5px;
-  position: relative;
-  width: 23px;
-  transition: all 0.2s ease-in-out; }
-  .fixed-plugin .badge:hover, .fixed-plugin .badge.active {
-    border-color: #344767; }
-
-.fixed-plugin .btn.bg-gradient-primary:not(:disabled):not(.disabled) {
-  border: 1px solid transparent; }
-  .fixed-plugin .btn.bg-gradient-primary:not(:disabled):not(.disabled):not(.active) {
-    background-color: transparent;
-    background-image: none;
-    border: 1px solid #82d616;
-    color: #82d616; }
-
-.fixed-plugin.show .card {
-  right: 0; }
-
 .input-group {
   border-radius: 0.5rem; }
   .input-group,
@@ -12673,6 +12631,11 @@ label,
 
 .bg-gradient-info {
   background-image: linear-gradient(310deg, #2152ff 0%, #21d4fd 100%); }
+
+.edit-bg-gradient-info{
+  background-image: linear-gradient(310deg, #82d616 100%, #cdefa2 50%);
+  color: white;
+}
 
 .bg-gradient-warning {
   background-image: linear-gradient(310deg, #f53939 0%, #fbcf33 100%); }
@@ -14061,18 +14024,6 @@ hr.horizontal {
   width: 100%;
   padding-right: 0; }
 
-.rtl .fixed-plugin .fixed-plugin-button {
-  left: 30px;
-  right: auto; }
-
-.rtl .fixed-plugin .card {
-  left: -360px !important;
-  right: auto; }
-
-.rtl .fixed-plugin.show .card {
-  right: auto;
-  left: 0 !important; }
-
 .rtl .timeline .timeline-content {
   margin-right: 45px;
   margin-left: 0; }
@@ -14445,9 +14396,9 @@ hr.horizontal {
   width: 120px;
   margin: 0; }
 
-.table td,
-.table th {
-  white-space: nowrap; }
+.table {
+  table-layout: fixed;
+}
 
 .table.align-items-center td,
 .table.align-items-center th {
